@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update]
+  before_action :set_project, only: %i[show edit update destroy]
 
   def index
     @projects = Project.all
@@ -33,6 +33,12 @@ class ProjectsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @project.destroy
+    flash[:notice] = "Project deleted successfully!"
+    redirect_to projects_path
   end
 
   private
